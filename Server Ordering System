@@ -1,0 +1,54 @@
+import socket
+import sys
+import math
+from multiprocessing import Process
+
+def process_start(s_sock):
+   s_sock.send(str.encode('1- Order        2-Receipt'))
+   while True:
+       option = s_sock.recv(2048)  #receive option from client
+       decOption = option.decode() #decoded option
+       print("The option: ", decOption)
+       if not option:
+          break
+       if(decOption == '1'):
+          s_sock.send(str.encode('1-Maggi Goreng    2-Telur Goreng')) #send list of menu
+          menu = s_sock.recv(2048)
+          s_sock.send(str.encode('Quantity: '))
+          quantity = s_sock.recv(2048)
+          deMenu = menu.decode()
+          iQuantity = int(quantity)
+          print("Order: ", deMenu)
+          print("Quantity: ", iQuantity)
+          s_sock.send(str.encode('The order is successfull received!'))
+       elif(decOption == '2'):
+          print("This Is The Receipt. Thank You. Please Come Again!")
+            #math calculation (addition, subtraction, multiply)
+          s_sock.send(str.encode('The Receipt'))
+       else:
+          print("Invalid Option")
+   s_sock.close()
+
+if __name__ == '__main__':
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("",8888))
+    print("listening...")
+    s.listen(3)
+    try:
+        while True:
+            try:
+                s_sock, s_addr = s.accept()
+                p = Process(target=process_start, args=(s_sock,))
+                p.start()
+
+
+            except socket.error:
+
+                print('got a socket error')
+
+    except Exception as e:
+        print('an exception occurred!')
+        print(e)
+        sys.exit(1)
+    finally:
+           s.close()
