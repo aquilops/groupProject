@@ -1,27 +1,34 @@
 import socket
 from multiprocessing import Process
 
+store_item = [["F1", "Nasi Lemak Ayam", 7],
+              ["F2", "Laksa Penang", 8],
+             ]
+myCart = []
+
 def process_start(s_sock):
     s_sock.send(str.encode('WELCOME TO PAITON CAFE'))
     while True:
      takeOrder = s_sock.recv(2048)
      if (str(takeOrder.decode()) == '1'):
       print("Want To: Take Order")
-      try:
+      while True:
        menuCode = s_sock.recv(2048)
        if (str(menuCode.decode()) == "F1"):
-        print("MENU ORDERED: NASI LEMAK AYAM")
-        price = 7 ###can use index instead of assign manually
-       menuQuantity = s_sock.recv(2048)
-       intQuantity = int(menuQuantity)
-       print("Quantity: ", intQuantity)
-       total = price * intQuantity
-       print("Total Price: RM " , total)
-       s_sock.send(bytes(str(total), 'utf-8'))
+        print("MENU ORDERED:", store_item[0][1])
+        price = store_item[0][2]
+        menuQuantity = s_sock.recv(2048)
+        intQuantity = int(menuQuantity)
+        print("Quantity: ", intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y'):
+          total = price * intQuantity
+          print("Total Price: RM " , total)
+          s_sock.send(bytes(str(total), 'utf-8'))
 
-      except:
-       print("lalalal")
-     else:
+     # except:
+      # print("lalalal")
+     else:   #selain take order == 1
       print("Disconnected")
       s_sock.close()
 if __name__ == '__main__':
@@ -36,7 +43,7 @@ if __name__ == '__main__':
          print("Get Connection From " + str(s_addr))
          p = Process (target = process_start, args = (s_sock, ))
          p.start()
-         
+
        except socket.error:
           print('Got A Socket Error')
 
@@ -47,3 +54,4 @@ if __name__ == '__main__':
 
     finally:
           s.close()
+
