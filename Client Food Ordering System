@@ -18,18 +18,26 @@ print(greeting.decode())
 
 while True:   #after print greeting word
 
+  nextOrder = True
   Input1 = input('Press 1 to Take Order: ')
   clientSocket.send(str.encode(Input1))
   if Input1 == '1':
     print("{:>5}{:>25}{:>10}".format("CODE", "ITEM", "PRICE"))
     for item in store_item:
      print("{:>5}{:>25}{:>10}".format(*item))
-    InputCode = input('ENTER CODE: ')
-    clientSocket.send(str.encode(InputCode))
-    InputQuantity = input('ENTER QUANTITY: ')
-    clientSocket.send(str.encode(InputQuantity))
-    totalPrice = clientSocket.recv(2048)
-    print("Total:RM ", totalPrice.decode('utf-8'))
+    while nextOrder == True:
+       InputCode = input('ENTER CODE: ')
+       clientSocket.send(str.encode(InputCode))
+       InputQuantity = input('ENTER QUANTITY: ')
+       clientSocket.send(str.encode(InputQuantity))
+       ContinueInput = input('FINISH?(Y/N):')
+       clientSocket.send(str.encode(ContinueInput))
+       if ContinueInput == 'Y':
+        totalPrice = clientSocket.recv(2048)
+        print("Total:RM ", totalPrice.decode('utf-8'))
+        break
   else:
     print("Bye")
     clientSocket.close()
+
+
