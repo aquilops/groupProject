@@ -15,7 +15,7 @@ def process_start(s_sock):
       while True:
        menuCode = s_sock.recv(2048)
        if (str(menuCode.decode()) == "F1"):
-        print("MENU ORDERED:", store_item[0][1])
+        print("MENU ORDERED: ", store_item[0][1])
         price = store_item[0][2]
         menuQuantity = s_sock.recv(2048)
         intQuantity = int(menuQuantity)
@@ -23,9 +23,20 @@ def process_start(s_sock):
         continueInput = s_sock.recv(2048)
         if (str(continueInput.decode()) == 'Y'):
           total = price * intQuantity
-          print("Total Price: RM " , total)
+          print("Total Price: RM" , total)
           s_sock.send(bytes(str(total), 'utf-8'))
 
+      else if (str(menuCode.decode()) == "F2"):
+        print("MENU ORDERED: ", store_item[1][1])
+        price = store_item[1][2]
+        menuQuantity = s.sock.recv(2048)
+        print("Quantity: ", intQuantity)
+        continueInput = s_sock.recv(2048)
+        if (str(continueInput.decode()) == 'Y');
+          total = price * intQuantity
+          print("Total Price: RM" , total)
+          s_sock.send(bytes(str(total), 'utf-8'))
+          
      # except:
       # print("lalalal")
      else:   #selain take order == 1
