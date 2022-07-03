@@ -1,0 +1,49 @@
+import socket
+from multiprocessing import Process
+
+def process_start(s_sock):
+    s_sock.send(str.encode('WELCOME TO PAITON CAFE'))
+    while True:
+     takeOrder = s_sock.recv(2048)
+     if (str(takeOrder.decode()) == '1'):
+      print("Want To: Take Order")
+      try:
+       menuCode = s_sock.recv(2048)
+       if (str(menuCode.decode()) == "F1"):
+        print("MENU ORDERED: NASI LEMAK AYAM")
+        price = 7 ###can use index instead of assign manually
+       menuQuantity = s_sock.recv(2048)
+       intQuantity = int(menuQuantity)
+       print("Quantity: ", intQuantity)
+       total = price * intQuantity
+       print("Total Price: RM " , total)
+       s_sock.send(bytes(str(total), 'utf-8'))
+
+      except:
+       print("lalalal")
+     else:
+      print("Disconnected")
+      s_sock.close()
+if __name__ == '__main__':
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("",8888))
+    print("I am Waiting...")
+    s.listen(5)
+    try:
+     while True:
+       try:
+         s_sock, s_addr = s.accept()
+         print("Get Connection From " + str(s_addr))
+         p = Process (target = process_start, args = (s_sock, ))
+         p.start()
+         
+       except socket.error:
+          print('Got A Socket Error')
+
+    except Exception as e:
+          print('An Exception Occured!')
+          print(e)
+          sys.exit(1)
+
+    finally:
+          s.close()
