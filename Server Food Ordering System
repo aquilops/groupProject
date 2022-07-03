@@ -1,17 +1,21 @@
 import socket
 from multiprocessing import Process
 
+//item that we have in paiton cafe
 store_item = [["F1", "Nasi Lemak Ayam", 7],
               ["F2", "Laksa Penang", 8],
              ]
 myCart = []
 
+//greeting word to client
 def process_start(s_sock):
-    s_sock.send(str.encode('WELCOME TO PAITON CAFE'))
-    while True:
-     takeOrder = s_sock.recv(2048)
-     if (str(takeOrder.decode()) == '1'):
-      print("Want To: Take Order")
+   s_sock.send(str.encode('WELCOME TO PAITON CAFE'))
+   
+   while True:
+    takeOrder = s_sock.recv(2048)
+      if (str(takeOrder.decode()) == '1'):
+       print("Want To: Take Order")
+      
       while True:
        menuCode = s_sock.recv(2048)
        if (str(menuCode.decode()) == "F1"):
@@ -21,7 +25,15 @@ def process_start(s_sock):
         intQuantity = int(menuQuantity)
         print("Quantity: ", intQuantity)
         continueInput = s_sock.recv(2048)
-        if (str(continueInput.decode()) == 'Y'):
+        
+        // if they did not put any number for quantity
+        if (str(continueInput.decode())=='N'):
+         except (ValueError, ZeroDivisionError):
+            while continueInput == "0" or not continueInput.isdigit():
+                print(""Please input valid numbers only.(Greater than zero)\n")
+               
+          
+         else if (str(continueInput.decode()) == 'Y'):
           total = price * intQuantity
           print("Total Price: RM" , total)
           s_sock.send(bytes(str(total), 'utf-8'))
@@ -32,10 +44,21 @@ def process_start(s_sock):
         menuQuantity = s.sock.recv(2048)
         print("Quantity: ", intQuantity)
         continueInput = s_sock.recv(2048)
+        
+         // if they did not put any number for quantity
+        if (str(continueInput.decode())=='N'):
+         except (ValueError, ZeroDivisionError):
+            while continueInput == "0" or not continueInput.isdigit():
+                print(""Please input valid numbers only.(Greater than zero)\n")
+                
         if (str(continueInput.decode()) == 'Y');
           total = price * intQuantity
           print("Total Price: RM" , total)
           s_sock.send(bytes(str(total), 'utf-8'))
+          
+          
+          // if they want to add something 
+          
           
      # except:
       # print("lalalal")
