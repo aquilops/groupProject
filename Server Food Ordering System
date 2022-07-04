@@ -1,13 +1,13 @@
 import socket
 from multiprocessing import Process
 
-//item that we have in paiton cafe
+# item that we have in paiton cafe
 store_item = [["F1", "Nasi Lemak Ayam", 7],
               ["F2", "Laksa Penang", 8],
              ]
 myCart = []
 
-//greeting word to client
+# greeting word to client
 def process_start(s_sock):
    s_sock.send(str.encode('WELCOME TO PAITON CAFE'))
    
@@ -26,7 +26,7 @@ def process_start(s_sock):
         print("Quantity: ", intQuantity)
         continueInput = s_sock.recv(2048)
         
-        // if they did not put any number for quantity
+        # if they did not put any number for quantity
         if (str(continueInput.decode())=='N'):
          except (ValueError, ZeroDivisionError):
             while continueInput == "0" or not continueInput.isdigit():
@@ -45,7 +45,7 @@ def process_start(s_sock):
         print("Quantity: ", intQuantity)
         continueInput = s_sock.recv(2048)
         
-         // if they did not put any number for quantity
+         # if they did not put any number for quantity
         if (str(continueInput.decode())=='N'):
          except (ValueError, ZeroDivisionError):
             while continueInput == "0" or not continueInput.isdigit():
@@ -57,7 +57,7 @@ def process_start(s_sock):
           s_sock.send(bytes(str(total), 'utf-8'))
           
           
-          // if they want to add something 
+         # if they want to add something 
           
           
      # except:
