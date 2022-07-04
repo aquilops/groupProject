@@ -4,6 +4,9 @@ from multiprocessing import Process
 # item that we have in paiton cafe
 store_item = [["F1", "Nasi Lemak Ayam", 7],
               ["F2", "Laksa Penang", 8],
+              ["F3", "Mihun Sup", 8],
+              ["F4", "ABC", 5],
+              ["F5", "Char Kuey Teow",12],
              ]
 myCart = []
 
@@ -26,13 +29,14 @@ def process_start(s_sock):
         print("Quantity: ", intQuantity)
         continueInput = s_sock.recv(2048)
         
-        # if they did not put any number for quantity
-        if (str(continueInput.decode())=='N'):
-         except (ValueError, ZeroDivisionError):
-            while continueInput == "0" or not continueInput.isdigit():
-                print(""Please input valid numbers only.(Greater than zero)\n")
-               
-          
+
+#if they did not put any number for quantity
+#if (str(continueInput.decode())=='N'):
+#except (ValueError, ZeroDivisionError):
+#while continueInput == "0" or not continueInput.isdigit():
+#print(""Please input valid numbers only.(Greater than zero)\n")
+
+           
          else if (str(continueInput.decode()) == 'Y'):
           total = price * intQuantity
           print("Total Price: RM" , total)
@@ -45,17 +49,78 @@ def process_start(s_sock):
         print("Quantity: ", intQuantity)
         continueInput = s_sock.recv(2048)
         
-         # if they did not put any number for quantity
-        if (str(continueInput.decode())=='N'):
-         except (ValueError, ZeroDivisionError):
-            while continueInput == "0" or not continueInput.isdigit():
-                print(""Please input valid numbers only.(Greater than zero)\n")
-                
+
+#if they did not put any number for quantity
+#if (str(continueInput.decode())=='N'):
+#except (ValueError, ZeroDivisionError):
+#while continueInput == "0" or not continueInput.isdigit():
+#print(""Please input valid numbers only.(Greater than zero)\n")
+
+           
         if (str(continueInput.decode()) == 'Y');
           total = price * intQuantity
           print("Total Price: RM" , total)
           s_sock.send(bytes(str(total), 'utf-8'))
           
+          
+      else if (str(menuCode.decode()) == "F3"):
+        print("MENU ORDERED: ", store_item[2][1])
+        price = store_item[2][2]
+        menuQuantity = s.sock.recv(2048)
+        print("Quantity: ", intQuantity)
+        continueInput = s_sock.recv(2048)
+        
+
+#if they did not put any number for quantity
+#if (str(continueInput.decode())=='N'):
+#except (ValueError, ZeroDivisionError):
+#while continueInput == "0" or not continueInput.isdigit():
+#print(""Please input valid numbers only.(Greater than zero)\n")
+
+           
+        if (str(continueInput.decode()) == 'Y');
+          total = price * intQuantity
+          print("Total Price: RM" , total)
+          s_sock.send(bytes(str(total), 'utf-8'))
+          
+          
+      else if (str(menuCode.decode()) == "F4"):
+        print("MENU ORDERED: ", store_item[3][1])
+        price = store_item[3][2]
+        menuQuantity = s.sock.recv(2048)
+        print("Quantity: ", intQuantity)
+        continueInput = s_sock.recv(2048)
+        
+#if (str(continueInput.decode())=='N'):
+#except (ValueError, ZeroDivisionError):
+#while continueInput == "0" or not continueInput.isdigit():
+#print(""Please input valid numbers only.(Greater than zero)\n")
+            
+        if (str(continueInput.decode()) == 'Y');
+          total = price * intQuantity
+          print("Total Price: RM" , total)
+          s_sock.send(bytes(str(total), 'utf-8'))
+          
+          
+          
+      else if (str(menuCode.decode()) == "F5"):
+        print("MENU ORDERED: ", store_item[4][1])
+        price = store_item[4][2]
+        menuQuantity = s.sock.recv(2048)
+        print("Quantity: ", intQuantity)
+        continueInput = s_sock.recv(2048)
+        
+#if they did not put any number for quantity
+#if (str(continueInput.decode())=='N'):
+#except (ValueError, ZeroDivisionError):
+#while continueInput == "0" or not continueInput.isdigit():
+#print(""Please input valid numbers only.(Greater than zero)\n")
+
+           
+        if (str(continueInput.decode()) == 'Y');
+          total = price * intQuantity
+          print("Total Price: RM" , total)
+          s_sock.send(bytes(str(total), 'utf-8'))
           
          # if they want to add something 
           
