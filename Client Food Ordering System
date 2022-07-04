@@ -28,7 +28,7 @@ while True:   #after print greeting word
     while nextOrder == True:
        InputCode = input('ENTER CODE: ')
        clientSocket.send(str.encode(InputCode))
-       InputQuantity = input('ENTER QUANTITY: ')
+       InputQuantity = input('HOW MANY {takeOrder} do you want: ')
        clientSocket.send(str.encode(InputQuantity))
        ContinueInput = input('FINISH?(Y/N):')
        clientSocket.send(str.encode(ContinueInput))
