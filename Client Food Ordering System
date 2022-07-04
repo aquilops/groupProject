@@ -2,6 +2,9 @@ import socket
 
 store_item = [["F1", "Nasi Lemak Ayam", 7],
               ["F2", "Laksa Penang", 8],
+              ["F3", "Mihun Sup", 8],
+              ["F4", "ABC", 5],
+              ["F5", "Char Kuey Teow",12],
              ]
 clientSocket = socket.socket()
 host = '192.168.121.11'
